@@ -8,70 +8,54 @@
 
 
 def init(max_laps):
-    """
-    Crea y retorna un diccionario para almacenar hasta max_laps vueltas.
-    """
-    # TODO: Implementar
-    pass
+    return {
+        'max': max_laps,
+        'times': [],
+        'total': 0.0
+    }
 
 
 def add_lap(timer, time):
-    """
-    Agrega una nueva vuelta con el tiempo especificado.
-    Retorna el diccionario modificado.
-    """
-    # TODO: Implementar
-    pass
+    if len(timer['times']) < timer['max']:
+        timer['times'].append(time)
+        timer['total'] += time
+    return timer
 
 
 def count(timer):
-    """
-    Retorna el numero de vueltas agregadas.
-    """
-    # TODO: Implementar
-    pass
+    return len(timer['times'])
 
 
 def cumulative_time(timer):
-    """
-    Retorna el tiempo acumulado de todas las vueltas.
-    """
-    # TODO: Implementar
-    pass
+    return timer['total']
 
 
 def format_laps(timer):
-    """
-    Retorna una representacion en cadena de los tiempos.
-    Formato: [t1, t2, t3, ..., tn]
-    """
-    # TODO: Implementar
-    pass
+    return str(timer['times'])
+
 
 
 def fastest_lap(timer):
-    """
-    Retorna el tiempo mas rapido de cualquier vuelta.
-    """
-    # TODO: Implementar
-    pass
+    return min(timer['times']) 
+
 
 
 def fastest_multi_lap(timer, k):
-    """
-    Retorna el tiempo acumulado mas rapido de cualquier k vueltas consecutivas.
-    """
-    # TODO: Implementar
-    pass
+    times=timer['times']
+    return min(sum(times[i:i+k]) for i in range(len(times)-k+1))
 
 
 def longest_decreasing_streak(timer):
-    """
-    Retorna la longitud maxima de una secuencia de vueltas consecutivas
-    donde los tiempos disminuyen estrictamente.
-    """
-    # TODO: Implementar
-    pass
+
+    max_streak = 1
+    current_streak = 1  
+    for i in range(1, len(timer['times'])):
+        if timer['times'][i] < timer['times'][i - 1]:
+            current_streak += 1
+            max_streak = max(max_streak, current_streak)
+        else:
+            current_streak = 1
+    return max_streak
 
 
 def main():
